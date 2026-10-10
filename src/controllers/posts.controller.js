@@ -1,6 +1,6 @@
 import * as PostsService from "../services/posts.service.js";
 
-export async function list(res, req) {
+export async function list(req, res) {
   const posts = await PostsService.listPosts(req.user);
   res.json(posts);
 }

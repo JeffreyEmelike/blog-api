@@ -1,5 +1,5 @@
 import * as PostsModel from "../models/posts.model.js";
-import { AppError } from "../utils/AppError";
+import { AppError } from "../utils/AppError.js";
 
 export async function listPosts(requestingUser) {
   if (!requestingUser) return PostsModel.findAllPublic();

@@ -1,4 +1,4 @@
-import pool from "../config/db.js";
+import { pool } from "../config/db.js";
 
 export async function findById(id) {
   const [rows] = await pool.query("SELECT * FROM posts WHERE id = ?", [id]);
