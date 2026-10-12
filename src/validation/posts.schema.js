@@ -5,3 +5,5 @@ export const createPostsSchema = z.object({
   body: z.string().trim().min(1, "body is required"),
   status: z.enum(["draft", "public"]).optional(),
 });
+
+export const updatePostSchema = createPostsSchema.partial();
