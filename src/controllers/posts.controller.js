@@ -14,3 +14,17 @@ export async function create(req, res) {
   const post = await PostsService.createPost(req.body, req.user);
   res.status(201).json(post);
 }
+
+export async function update(req, res) {
+  const post = await PostsService.updatePost(
+    Number(req.params.id),
+    req.body,
+    req.user,
+  );
+  res.json(post);
+}
+
+export async function remove(req, res) {
+  await PostsService.deletePost(Number(req.params.id), req.user);
+  res.status(204).end();
+}
