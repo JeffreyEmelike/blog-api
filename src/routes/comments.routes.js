@@ -1,8 +1,8 @@
 import { Router } from "express";
 import * as CommentsController from "../controllers/comments.controller.js";
-import { requireAuth } from "../middleware/auth";
+import { requireAuth } from "../middleware/auth.js";
 import { validate } from "../middleware/validate.js";
-import { createCommentSchema } from "../validation/comments.schema.js";
+import { createCommentsSchema } from "../validation/comments.schema.js";
 
 const router = Router();
 
@@ -10,7 +10,7 @@ router.get("/posts/:postId/comments", CommentsController.list);
 router.post(
   "/posts/:postId/comments",
   requireAuth,
-  validate(createCommentSchema),
+  validate(createCommentsSchema),
   CommentsController.create,
 );
 router.delete("/comments/:id", requireAuth, CommentsController.remove);

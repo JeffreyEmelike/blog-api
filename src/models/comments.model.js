@@ -14,7 +14,7 @@ export async function findAllForPost(postId) {
 
 export async function create({ body, postId, userId }) {
   const [result] = await pool.query(
-    "INSERT INTO comments(body, post_d, user_id) WHERE VALUES(?, ?, ?)",
+    "INSERT INTO comments(body, post_id, user_id) VALUES(?, ?, ?)",
     [body, postId, userId],
   );
   return findById(result.insertId);
