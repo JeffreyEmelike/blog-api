@@ -27,3 +27,25 @@ export async function create({ title, body, status, userId }) {
   );
   return findById(result.insertId);
 }
+
+export async function update(id, changes) {
+  const fields = [];
+  const values = [];
+  for (const [key, value] of Object.entries(changes)) {
+    fields.push(`${key} = ?`);
+    values.push(value);
+  }
+  if (fields.length === 0) return findById(id);
+
+  values.push(id);
+  await pool.query(
+    `UPDATE posts SET ${fields.join(", ")} WHERE id = ?`,
+    values,
+  );
+  return findById(id);
+}
+
+export async function remove(id) {
+  const [result] = await pool.query("DELETE FROM posts WHERE id = ?", [id]);
+  return result.affectedRows > 0;
+}
