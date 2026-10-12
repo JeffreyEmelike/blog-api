@@ -20,3 +20,29 @@ export async function getPost(id, requestingUser) {
 export async function createPost(data, requestingUser) {
   return PostsModel.create({ ...data, userId: requestingUser.id });
 }
+
+export async function updatePost(id, changes, requestingUser) {
+  const post = await PostsModel.findById(id);
+  if (!post) throw new AppError("Post not found", 404);
+
+  const isOwner = post.user_id === requestingUser.id;
+  const isAdmin = requestingUser.role === "admin";
+  if (!isOwner && !isAdmin) {
+    throw new AppError("Post not found", 404);
+  }
+
+  return PostsModel.update(id, changes);
+}
+
+export async function deletePost(id, requestingUser) {
+  const post = await PostsModel.findById(id);
+  if (!post) throw new AppError("Post not found", 404);
+
+  const isOwner = post.user_id === requestingUser.id;
+  const isAdmin = requestingUser.role === "admin";
+  if (!isOwner && !isAdmin) {
+    throw new AppError("Post not found", 404);
+  }
+
+  await PostsModel.remove(id);
+}
